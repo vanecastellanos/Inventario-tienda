@@ -1,0 +1,42 @@
+CONSULTAS SQL
+.¿Cuáles son todos los productos disponibles y 
+sus precios?
+SELECT 
+    Nombre AS Producto,
+    Precio
+FROM 
+    Productos;
+2.¿Qué productos cuestan más de $10?
+SELECT 
+    Nombre AS Producto,
+    Precio
+FROM 
+    Productos
+WHERE 
+    Precio > 10;
+3.¿Qué productos pertenecen a cada categoría? 
+(JOIN)
+SELECT 
+    c.Nombre AS Categoria,
+    p.Nombre AS Producto
+FROM 
+    Productos p
+JOIN 
+    Productos_Categorias pc ON p.ID = pc.ID_PRODUCTO
+JOIN 
+    Categorias c ON c.ID = pc.ID_CATEGORIA
+ORDER BY 
+    c.Nombre, p.Nombre;
+
+PREGUNTAS CORTAS
+1.¿Para qué se usan las claves foráneas?
+*  Relacionan tablas entre sí.
+*  Aseguran que los datos sean consistentes.
+*  Previenen la creación de registros huérfanos.
+*  Permiten reglas automáticas como la eliminación o actualización en cascada.
+
+2.¿Qué diferencia hay entre INNER JOIN y LEFT 
+JOIN?
+*INNER JOIN: Solo devuelve las filas que tienen coincidencias en ambas tablas.
+*LEFT JOIN: Devuelve todas las filas de la tabla izquierda, con las coincidencias 
+de la tabla derecha. Si no hay coincidencias, los valores de la tabla derecha serán NULL.
