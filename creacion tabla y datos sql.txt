@@ -1,0 +1,38 @@
+CREATE DATABASES Tienda;
+
+USE Tienda;
+
+*CREAR TABLA
+
+CREATE TABLE Categorias (
+    ID INT PRIMARY KEY,
+    NOMBRE VARCHAR(100)
+);
+
+CREATE TABLE Productos (
+    ID INT PRIMARY KEY,
+    NOMBRE VARCHAR(50),
+    PRECIO DECIMAL(40,2)
+);
+CREATE TABLE Productos_Categorias (
+    ID_PRODUCTO INT,
+    ID_CATEGORIA INT,
+    PRIMARY KEY (ID_PRODUCTO, ID_CATEGORIA),
+    FOREIGN KEY (ID_PRODUCTO) REFERENCES Productos(ID),
+    FOREIGN KEY (ID_CATEGORIA) REFERENCES Categorias(ID)
+);
+
+*AGREGAR DATOS A LA TABLA 
+
+INSERT INTO productos (ID, Nombre, Precio) VALUES
+    (1, 'Taladro', 120),
+    (2, 'Tornillo', 200),
+    (3, 'Pintura Blanca', 180);
+
+SELECT * FROM productos;
+CREAR CATEGORIAS
+
+INSERT INTO Productos_Categorias (ID_PRODUCTO, ID_CATEGORIA) VALUES
+    (1, 1), -- Taladro → Herramientas
+    (1, 3), -- Taladro → Equipos de Seguridad
+    (2, 1), -- Tornillo → Herramientas
