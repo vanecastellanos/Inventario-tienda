@@ -1,0 +1,98 @@
+Consultas Mongodb
+
+*Encuentra todos los Pokémon 
+de tipo “Electric”.
+
+db.pokemones.aggregate([{$match: {Type1: "Electric"}}]);
+
+db.pokemones.aggregate([{$match: {Type2: "Electric"}}]);
+
+* Muestra solo los nombres y el 
+ataque de los Pokémon con más de 100 
+de ataque.
+
+db.pokemones.aggregate([{$match: {Attack: {$gt: 100}}}]);
+
+*Encuentra los Pokémon cuya 
+defensa esté entre 80 y 100 (inclusive)
+
+*Muestra el promedio de ataque 
+de los Pokémon por tipo (Type1).
+
+ db.pokemones.aggregate([
+   { $group: { _id: "$Type1", promedioAtaque: { $avg: "$Attack" } } }
+ ]);
+
+*Agregaciones
+* Encuentra el Pokémon con más HP 
+de cada tipo.
+
+db.pokemones.aggregate([
+  { $sort: { HP: -1 } },  
+  {
+    $group: {
+      _id: "$Type1",                
+      HP: { $first: "$HP" }        
+    }
+  }
+]);
+
+
+db.pokemones.aggregate([
+  { $sort: { HP: -1 } },  
+  {
+    $group: {
+      _id: "$Type2",                
+      HP: { $first: "$HP" }        
+    }
+  }
+]);
+
+
+*Muestra los 5 Pokémon más 
+rápidos.
+
+db.pokemones.aggregate([
+  { $sort: { speed: -1 } },
+  { $limit: 5 }
+]);
+
+*Combinaciones de $match, $group y 
+$sort
+* Muestra el promedio de ataque 
+de los Pokémon tipo “Water” ordenado 
+de mayor a menor.
+
+db.pokemones.aggregate([
+   { $match: { Type1: "Water" } },
+   { $group: { _id: "$Type1", promedioAtaque: { $avg: "$Attack" } } },
+   { $sort: { promedioAtaque: -1 } }
+ ]);
+
+*Encuentra el Pokémon con más 
+ataque por generación y ordénalos de 
+mayor a menor.
+
+ db.pokemones.aggregate([
+   { $group: { _id: "$Generation", maxAtaque: { $max: "$Attack" } } },
+   { $sort: { maxAtaque: -1 } }
+ ]);
+
+*Indenxación y Rendimiento
+*Crea un índice en el campo 
+Type1
+
+*Usa explain() para analizar el 
+rendimiento de una búsqueda
+
+db.Pokemones.find({Type1: "Fire"}).explain("executionStats")
+
+db.Pokemones.createIndex({Type1: 1});
+
+*Crea un índice compuesto en 
+Type1 y Speed, y analiza una búsqueda
+
+db.Pokemones.createIndex({Type1: 1, Attack: -1})
+
+Profe realice todas las consultas y no arrojo ningun error.
+
