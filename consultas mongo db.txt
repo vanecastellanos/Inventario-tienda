@@ -82,17 +82,17 @@ mayor a menor.
 *Crea un índice en el campo 
 Type1
 
+db.Pokemones.createIndex({Type1: 1});
+
 *Usa explain() para analizar el 
 rendimiento de una búsqueda
 
 db.Pokemones.find({Type1: "Fire"}).explain("executionStats")
-
-db.Pokemones.createIndex({Type1: 1});
 
 *Crea un índice compuesto en 
 Type1 y Speed, y analiza una búsqueda
 
 db.Pokemones.createIndex({Type1: 1, Attack: -1})
 
-Profe realice todas las consultas y no arrojo ningun error.
+//Profe realice todas las consultas y no arrojo ningun error.
 
